@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Lap456.Controllers;
 using Lap456.Models;
 
 namespace Lap456.Controllers
@@ -385,5 +386,27 @@ namespace Lap456.Controllers
         }
 
 #endregion
+    }
+}
+
+namespace AccountController
+{
+    class ChallengeResult : ActionResult
+    {
+        private string provider;
+        private string v1;
+        private string v2;
+
+        public ChallengeResult(string provider, string v1, string v2)
+        {
+            this.provider = provider;
+            this.v1 = v1;
+            this.v2 = v2;
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

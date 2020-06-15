@@ -1,4 +1,5 @@
 ﻿using _dbContext;
+using Lap456.DTOs;
 using Lap456.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -24,12 +25,24 @@ namespace Lap456.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Attend([FromBody] int courseId)
+        public IHttpActionResult Attend(AttendanceDto attendanceDto)
         {
-            CourseId = courseId,
-            AttendeeId = User.Identity.GetUserId()
-        };
-        _dbContext.Attendances.Add(Attendances);
-        _dbContext.SaveChanges();
-    }
+            var userId = User.Identity.GetUserId();
+            if (_dbContext.Attendances.Any(a => a.AttendeeId == userId && a.CourseId == attendanceDto.CourseId))
+                return BadRequest("The Attendance already exists!");
+
+            var attendance = new Attendance
+            {
+                CourseId = attendanceDto.CourseId,
+                AttendeeId = userId
+            };
+
+            _dbContext.Attendances.Add(attendance);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+    } 
 }
+
+

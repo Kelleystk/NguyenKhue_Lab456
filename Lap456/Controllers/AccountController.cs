@@ -9,10 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Lap456.Models;
-using Lap456.Models;
-using Lap456;
 
-namespace Lab04.Controllers
+
+namespace Lap456.Controllers
 {
     [Authorize]
     public class AccountController : Controller
